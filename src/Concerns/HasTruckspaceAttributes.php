@@ -11,7 +11,7 @@ trait HasTruckspaceAttributes
      *
      * @return string|null
      */
-    public function getUsernameAttribute()
+    public function getUsernameAttribute(): ?string
     {
         return Walkway::user()->getUsername();
     }
@@ -21,7 +21,7 @@ trait HasTruckspaceAttributes
      *
      * @return string|null
      */
-    public function getProfilePhotoAttribute()
+    public function getProfilePhotoAttribute(): ?string
     {
         return Walkway::user()->getProfilePhoto();
     }
@@ -31,7 +31,7 @@ trait HasTruckspaceAttributes
      *
      * @return string|null
      */
-    public function getCoverPhotoAttribute()
+    public function getCoverPhotoAttribute(): ?string
     {
         return Walkway::user()->getCoverPhoto();
     }
@@ -41,7 +41,7 @@ trait HasTruckspaceAttributes
      *
      * @return int|null
      */
-    public function getSteamIdAttribute()
+    public function getSteamIdAttribute(): ?int
     {
         return Walkway::user()->getSteamId();
     }
@@ -51,7 +51,7 @@ trait HasTruckspaceAttributes
      *
      * @return int|null
      */
-    public function getDiscordIdAttribute()
+    public function getDiscordIdAttribute(): ?int
     {
         return Walkway::user()->getDiscordId();
     }

@@ -16,7 +16,7 @@ class TruckspaceService
      *
      * @return array|null
      */
-    public static function getUser()
+    public static function getUser(): ?array
     {
         $store = config('laravel-walkway.cache.store');
 
@@ -42,7 +42,7 @@ class TruckspaceService
      *
      * @return array|null
      */
-    protected static function getUserFromApi()
+    protected static function getUserFromApi(): ?array
     {
         $accessToken = self::getAccessToken();
 
@@ -69,7 +69,7 @@ class TruckspaceService
      *
      * @return string|null
      */
-    protected static function getAccessToken()
+    protected static function getAccessToken(): ?string
     {
         $tokens = Auth::user()->getAttribute(config('laravel-walkway.columns.tokens'));
 
@@ -92,7 +92,7 @@ class TruckspaceService
      * @param  string  $refreshToken
      * @return string|null
      */
-    protected static function refreshTokens(string $refreshToken)
+    protected static function refreshTokens(string $refreshToken): ?string
     {
         $response = Http::asForm()->post(Walkway::url('oauth/token'), [
             'grant_type' => 'refresh_token',

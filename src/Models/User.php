@@ -45,10 +45,10 @@ class User
     /**
      * Create a new User instance.
      *
-     * @param  array  $user
+     * @param  array|null  $user
      * @return void
      */
-    public function __construct($user)
+    public function __construct(?array $user)
     {
         if ($user) {
             $this->id = $user['id'];
@@ -65,7 +65,7 @@ class User
      *
      * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -75,7 +75,7 @@ class User
      *
      * @return string|null
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -85,7 +85,7 @@ class User
      *
      * @return string|null
      */
-    public function getProfilePhoto()
+    public function getProfilePhoto(): ?string
     {
         return $this->profilePhoto;
     }
@@ -95,7 +95,7 @@ class User
      *
      * @return string|null
      */
-    public function getCoverPhoto()
+    public function getCoverPhoto(): ?string
     {
         return $this->coverPhoto;
     }
@@ -105,7 +105,7 @@ class User
      *
      * @return int|mixed
      */
-    public function getSteamId()
+    public function getSteamId(): ?int
     {
         return $this->steamId;
     }
@@ -115,7 +115,7 @@ class User
      *
      * @return int|mixed
      */
-    public function getDiscordId()
+    public function getDiscordId(): ?int
     {
         return $this->discordId;
     }

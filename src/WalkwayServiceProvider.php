@@ -14,7 +14,7 @@ class WalkwayServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/laravel-walkway.php', 'laravel-walkway');
     }
@@ -26,7 +26,7 @@ class WalkwayServiceProvider extends ServiceProvider
      *
      * @throws BindingResolutionException
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configurePublishing();
         $this->configureSocialiteProvider();
@@ -37,7 +37,7 @@ class WalkwayServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configurePublishing()
+    protected function configurePublishing(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -80,7 +80,7 @@ class WalkwayServiceProvider extends ServiceProvider
      *
      * @throws BindingResolutionException
      */
-    protected function configureSocialiteProvider()
+    protected function configureSocialiteProvider(): void
     {
         $socialite = $this->app->make(Factory::class);
 

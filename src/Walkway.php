@@ -14,7 +14,7 @@ class Walkway
      * @param  string  $path
      * @return string
      */
-    public static function url(string $path)
+    public static function url(string $path): string
     {
         return 'https://id.truckspace.group/' . $path;
     }
@@ -24,7 +24,7 @@ class Walkway
      *
      * @return User|null
      */
-    public static function user()
+    public static function user(): ?User
     {
         if (! Auth::check()) {
             return null;
