@@ -64,7 +64,7 @@ If you change the names of the columns in the default migration, you will need t
 
 Walkway also supports encrypting the content of the tokens field. This can be changed by setting the `encrypt` value to either `true` or `false`.
 
-```
+```php
 'columns' => [
 
     // The name of the column used to store the users Truckspace ID
@@ -83,7 +83,7 @@ Walkway also supports encrypting the content of the tokens field. This can be ch
 
 One advantage of using Walkway, is that it will automatically take care of caching the data for each user. We provide a few configuration options to change the behaviour of the cache.
 
-```
+```php
 'cache' => [
 
     // The name of the cache store (this will use the default cache out of the box)
