@@ -58,8 +58,12 @@ The config file allows you to customize the behaviour of Walkway to suite your a
 
 **Columns**
 
- By default, Walkway publishd a migration file which contains a field to store the users Truckspace ID and a tokens field. The tokens field is used to store the users access token, refresh token and the date the access token expries (7 days after issue).
- 
+ By default, Walkway publishes a migration file which contains a field to store the users Truckspace ID and a tokens field. The tokens field is used to store the users access token, refresh token and the date the access token expries (7 days after issue).
+
+If you change the names of the columns in the default migration, you will need to update the id and tokens config value to match the column names.
+
+Walkway also supports encrypting the content of the tokens field. This can be changed by setting the `encrypt` value to either `true` or `false`.
+
 ```
 'columns' => [
 
@@ -74,10 +78,6 @@ The config file allows you to customize the behaviour of Walkway to suite your a
 
 ],
 ```
-
-If you change the names of the columns in the default migration, you will need to update the id and tokens config value to match the column names.
-
-Walkway also supports encrypting the content of the tokens field. This can be changed by setting the `encrypt` value to either `true` or `false`.
 
 **Cache** 
 
@@ -103,9 +103,9 @@ One advantage of using Walkway, is that it will automatically take care of cachi
 
 [Laravel Socialite](https://laravel.com/docs/master/socialite) provides a simple way to authenticate with OAuth providers. Walkway provides a Truckspace driver to make authentication as easy as possible.
 
-To use the Truckspace socialite driver, you will generate create an application on the [Truckspace ID developers](https://id.truckspace.group/developers) page. These credentails should then be placed in your `config/services.php` configuration file:
+To use the Truckspace socialite driver, you will need to create an application on the [Truckspace ID developers](https://id.truckspace.group/developers) page. These credentails should then be placed in your `config/services.php` configuration file:
 
-```
+```php
 'truckspace' => [
     'client_id' => env('TRUCKSPACE_CLIENT_ID'),
     'client_secret' => env('TRUCKSPACE_CLIENT_SECRET'),
@@ -122,7 +122,7 @@ TRUCKSPACE_CLIENT_SECRET=
 TRUCKSPACE_REDIRECT_URI=
 ```
 
-You can now use the Truckspace socialite driver:
+You can now use the Truckspace socialite driver like any other driver:
 
 ```
 Socialite::driver('truckspace');
@@ -131,9 +131,9 @@ Socialite::driver('truckspace');
 <a name="saving-the-tokens"></a>
 #### Saving the tokens
 
-When saving the tokens from socialite, you will need to build an array with the following keys and then store the json encoded value within the database:
+When saving the tokens from socialite, you will need to build an array with the following keys and then store the json encoded value in the database field:
 
-```
+```php
 $socialiteUser = Socialite::driver('truckspace')->user();
 
 $tokens = [
@@ -150,14 +150,14 @@ $user->truckspace_tokens = json_encode($tokens);
 $user->save();
 ```
 
-> Note: if you have encryption enabled, you will need to encrypt the json encoded data first. This can be done by Laravel's `encrypt` helper method.
+> Note: if you have encryption enabled, you will need to encrypt the json encoded data first. This can be done by using Laravel's `encrypt` helper method. For more information on how Laravel handles encryption, you can visit the [Encryption](https://laravel.com/docs/master/encryption) page.
 
 <a name="retrieve-the-current-user"></a>
 ### Retrieve the Current User
 
-Now that you have authenticated the user, you can retrieve the users Truckspace details by the following methods:
+Now that you have authenticated the user, you can retrieve the users Truckspace details by using the following methods:
 
-```
+```php
 Walkway::user()->getId();
 Walkway::user()->getUsername();
 Walkway::user()->getProfilePhoto();
@@ -169,7 +169,7 @@ Walkway::user()->getDiscordId();
 <a name="model-attributes"></a>
 #### Model Attributes
 
-Walkway also provides a way to automatically add the corrosponding attributes to your user model. This means that you can directly get the users Truckspace username, steam ID etc from your user instance.
+Walkway also provides a way to automatically add the corresponding attributes to your user model. This means that you can directly get the users Truckspace username, steam ID etc from your user instance.
 
 First, you will need to add the `HasTruckspaceAttributes` trait to your user model:
 
