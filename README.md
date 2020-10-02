@@ -124,7 +124,7 @@ TRUCKSPACE_REDIRECT_URI=
 
 You can now use the Truckspace socialite driver like any other driver:
 
-```
+```php
 Socialite::driver('truckspace');
 ```
 
