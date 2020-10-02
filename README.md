@@ -205,7 +205,7 @@ $coverPhoto = $user->cover_photo;
 $steamId = $user->steam_id;
 
 // Same as Walkway::user()->getDiscordId();
-$discorId = $user->discord_id;
+$discordId = $user->discord_id;
 ```
 
 ## Testing
