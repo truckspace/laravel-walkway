@@ -59,7 +59,7 @@ class User
             $this->username = $faker->userName;
             $this->profilePhoto = $faker->imageUrl();
             $this->coverPhoto = $faker->imageUrl();
-            $this->steamId = '765' . $faker->randomNumber(7, true) . $faker->randomNumber(7, true);;
+            $this->steamId = '765' . $faker->randomNumber(7, true) . $faker->randomNumber(7, true);
             $this->discordId = $faker->randomNumber();
         }
 
