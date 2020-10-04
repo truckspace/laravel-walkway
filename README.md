@@ -250,7 +250,7 @@ public function test_a_username_is_a_string()
 {
     Walkway::fake();
 
-    $user = User::first();
+    $user = User::factory()->create();
 
     $this->assertIsString($user->username);
 }
