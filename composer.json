@@ -18,6 +18,7 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
+        "fzaninotto/faker": "^1.9",
         "illuminate/support": "^8.7",
         "laravel/socialite": "^5.0"
     },

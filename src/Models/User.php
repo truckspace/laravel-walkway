@@ -2,6 +2,8 @@
 
 namespace Truckspace\Walkway\Models;
 
+use Faker\Factory;
+
 class User
 {
     /**
@@ -46,10 +48,21 @@ class User
      * Create a new User instance.
      *
      * @param  array|null  $user
-     * @return void
+     * @param  bool  $fake
      */
-    public function __construct(?array $user)
+    public function __construct(?array $user, bool $fake = false)
     {
+        if ($fake) {
+            $faker = Factory::create();
+
+            $this->id = $faker->randomNumber();
+            $this->username = $faker->userName;
+            $this->profilePhoto = $faker->imageUrl();
+            $this->coverPhoto = $faker->imageUrl();
+            $this->steamId = '765' . $faker->randomNumber(7, true) . $faker->randomNumber(7, true);
+            $this->discordId = $faker->randomNumber();
+        }
+
         if ($user) {
             $this->id = $user['id'];
             $this->username = $user['username'];
