@@ -2,6 +2,7 @@
 
 namespace Truckspace\Walkway;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Truckspace\Walkway\Models\User;
 use Truckspace\Walkway\Services\TruckspaceService;
@@ -22,15 +23,20 @@ class Walkway
     /**
      * Get the logged in users Truckspace details.
      *
+     * @param  Model|null  $model
      * @return User|null
      */
-    public static function user(): ?User
+    public static function user(?Model $model = null): ?User
     {
-        if (! Auth::check()) {
+        if (! $model && Auth::check()) {
+            $model = Auth::user();
+        }
+
+        if (! $model && ! Auth::check()) {
             return null;
         }
 
-        $user = TruckspaceService::getUser();
+        $user = TruckspaceService::getUser($model);
 
         return (new User($user));
     }

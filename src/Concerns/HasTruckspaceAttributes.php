@@ -13,7 +13,7 @@ trait HasTruckspaceAttributes
      */
     public function getUsernameAttribute(): ?string
     {
-        return Walkway::user()->getUsername();
+        return Walkway::user($this)->getUsername();
     }
 
     /**
@@ -23,7 +23,7 @@ trait HasTruckspaceAttributes
      */
     public function getProfilePhotoAttribute(): ?string
     {
-        return Walkway::user()->getProfilePhoto();
+        return Walkway::user($this)->getProfilePhoto();
     }
 
     /**
@@ -33,7 +33,7 @@ trait HasTruckspaceAttributes
      */
     public function getCoverPhotoAttribute(): ?string
     {
-        return Walkway::user()->getCoverPhoto();
+        return Walkway::user($this)->getCoverPhoto();
     }
 
     /**
@@ -43,7 +43,7 @@ trait HasTruckspaceAttributes
      */
     public function getSteamIdAttribute(): ?int
     {
-        return Walkway::user()->getSteamId();
+        return Walkway::user($this)->getSteamId();
     }
 
     /**
@@ -53,6 +53,6 @@ trait HasTruckspaceAttributes
      */
     public function getDiscordIdAttribute(): ?int
     {
-        return Walkway::user()->getDiscordId();
+        return Walkway::user($this)->getDiscordId();
     }
 }

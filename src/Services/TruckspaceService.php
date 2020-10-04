@@ -3,7 +3,7 @@
 namespace Truckspace\Walkway\Services;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -14,9 +14,10 @@ class TruckspaceService
     /**
      * Get the Truckspace user from the cache or API.
      *
+     * @param  Model  $user
      * @return array|null
      */
-    public static function getUser(): ?array
+    public static function getUser(Model $user): ?array
     {
         $store = config('laravel-walkway.cache.store');
 
@@ -24,7 +25,7 @@ class TruckspaceService
             $store = config('cache.default');
         }
 
-        $truckspaceId = Auth::user()->getAttribute(config('laravel-walkway.columns.id'));
+        $truckspaceId = $user->getAttribute(config('laravel-walkway.columns.id'));
 
         if (! $truckspaceId) {
             return null;
@@ -32,26 +33,28 @@ class TruckspaceService
 
         $key = config('laravel-walkway.cache.prefix') . $truckspaceId;
 
-        return Cache::store($store)->remember($key, config('laravel-walkway.cache.ttl'), function () {
-            return self::getUserFromApi();
-        });
+        return Cache::store($store)
+            ->remember($key, config('laravel-walkway.cache.ttl'), function () use ($user) {
+                return self::getUserFromApi($user);
+            });
     }
 
     /**
      * Get the Truckspace user from the API.
      *
+     * @param  Model  $user
      * @return array|null
      */
-    protected static function getUserFromApi(): ?array
+    protected static function getUserFromApi(Model $user): ?array
     {
-        $accessToken = self::getAccessToken();
+        $accessToken = self::getAccessToken($user);
 
         $response = Http::withToken($accessToken)
             ->get(Walkway::url('api/me'))
-            ->onError(static function ($response) {
+            ->onError(static function ($response) use ($user) {
                 Log::error('Failed to get Truckspace user', [
                     'body' => $response->getBody(),
-                    'user' => Auth::user(),
+                    'model' => $user,
                 ]);
 
                 return null;
@@ -67,11 +70,12 @@ class TruckspaceService
     /**
      * Get the users access token.
      *
+     * @param  Model  $user
      * @return string|null
      */
-    protected static function getAccessToken(): ?string
+    protected static function getAccessToken(Model $user): ?string
     {
-        $tokens = Auth::user()->getAttribute(config('laravel-walkway.columns.tokens'));
+        $tokens = $user->getAttribute(config('laravel-walkway.columns.tokens'));
 
         if (config('laravel-walkway.columns.encrypt')) {
             $tokens = json_decode(decrypt($tokens));
@@ -80,7 +84,7 @@ class TruckspaceService
         }
 
         if (Carbon::now() > $tokens->expires_at) {
-            return self::refreshTokens($tokens->refresh_token);
+            return self::refreshTokens($user, $tokens->refresh_token);
         }
 
         return $tokens->access_token;
@@ -89,10 +93,11 @@ class TruckspaceService
     /**
      * Refresh thte users tokens.
      *
+     * @param  Model  $user
      * @param  string  $refreshToken
      * @return string|null
      */
-    protected static function refreshTokens(string $refreshToken): ?string
+    protected static function refreshTokens(Model $user, string $refreshToken): ?string
     {
         $response = Http::asForm()->post(Walkway::url('oauth/token'), [
             'grant_type' => 'refresh_token',
@@ -100,10 +105,10 @@ class TruckspaceService
             'client_id' => config('services.truckspace.client_id'),
             'client_secret' => config('services.truckspace.client_secret'),
             'scope' => '',
-        ])->onError(static function ($response) {
+        ])->onError(static function ($response) use ($user) {
             Log::error('Failed to refresh Truckspace tokens', [
                 'body' => $response->getBody(),
-                'user' => Auth::user(),
+                'user' => $user,
             ]);
 
             return null;
@@ -122,8 +127,6 @@ class TruckspaceService
         if (config('laravel-walkway.columns.encrypt')) {
             $tokens = encrypt($tokens);
         }
-
-        $user = Auth::user();
 
         $user->setAttribute(config('laravel-walkway.columns.tokens'), $tokens);
         $user->save();
