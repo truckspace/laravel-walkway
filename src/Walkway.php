@@ -32,7 +32,7 @@ class Walkway
             $model = Auth::user();
         }
 
-        if (! $model && Auth::user()) {
+        if (! $model && ! Auth::check()) {
             return null;
         }
 
