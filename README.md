@@ -25,8 +25,10 @@ Laravel Walkway aims to provide a simple and intuitive interface for authenticat
     - [Configuration](#configuration)
 - [Socialite Provider](#socialite-provider)
     - [Saving the tokens](#saving-the-tokens)
-- [Retrieve the Current User](#retrieve-the-current-user)
+- [Retrieving user information](#retrieving-user-information)
     - [Model Attributes](#model-attributes)
+    - [Passing a Model Instance](#passing-a-model-instance)
+- [Faking Data](#faking-data)
 
 <a name="installation"></a>
 ### Installation
@@ -152,8 +154,8 @@ $user->save();
 
 > Note: if you have encryption enabled, you will need to encrypt the json encoded data first. This can be done by using Laravel's `encrypt` helper method. For more information on how Laravel handles encryption, you can visit the [Encryption](https://laravel.com/docs/master/encryption) page.
 
-<a name="retrieve-the-current-user"></a>
-### Retrieve the Current User
+<a name="retrieving-user-information"></a>
+### Retrieving user information
 
 Now that you have authenticated the user, you can retrieve the users Truckspace details by using the following methods:
 
@@ -206,6 +208,52 @@ $steamId = $user->steam_id;
 
 // Same as Walkway::user()->getDiscordId();
 $discordId = $user->discord_id;
+```
+
+<a name="passing-a-model-instance"></a>
+#### Passing a Model Instance
+
+You may want to get the details for a specific user model. To do this, you may pass an instance of the user model to the `Walkway::user()` method, like so:
+
+```php
+use App\Models\User;
+use Truckspace\Walkway\Walkway;
+
+$user = User::first();
+
+$walkwayUser = Walkway::user($user);
+```
+
+If you use the `HasTruckspaceAttributes` trait, you can call the attributes as normal on any user instance.
+
+```php
+use App\Models\User;
+
+$user = User::first();
+
+// Same as calling Walkway::user($user)->getUsername()
+$name = $user->username;
+```
+
+<a name="faking-data"></a>
+### Faking Data
+
+During unit tests, you may want to return fake data for the user model. This means that a call won't be made to the API server, but you will still get a value back from the attributes or methods. To use fake data you simply need to run the following method either at the beginning of your test or in your base test class.
+
+```php
+<?php
+
+use App\Models\User;
+use Truckspace\Walkway\Walkway;
+
+public function test_a_username_is_a_string()
+{
+    Walkway::fake();
+
+    $user = User::first();
+
+    $this->assertIsString($user->username);
+}
 ```
 
 ## Testing
