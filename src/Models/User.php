@@ -61,9 +61,7 @@ class User
             $this->coverPhoto = $faker->imageUrl();
             $this->steamId = '765' . $faker->randomNumber(7, true) . $faker->randomNumber(7, true);
             $this->discordId = $faker->randomNumber();
-        }
-
-        if ($user) {
+        } elseif ($user) {
             $this->id = $user['id'];
             $this->username = $user['username'];
             $this->profilePhoto = $user['profile_photo'];

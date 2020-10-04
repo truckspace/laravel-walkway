@@ -238,7 +238,7 @@ $name = $user->username;
 <a name="faking-data"></a>
 ### Faking Data
 
-During unit tests, you may want to return fake data for the user model. This means that a call won't be made to the API server, but you will still get a value back from the attributes or methods. To use fake data you simply need to run the following method either at the beginning of your test or in your base test class.
+During unit tests, you may want to return fake data for the user model. This means that a call won't be made to our API, but you will still get a value back from the attributes or methods. To get fake data you simply need to call `Walkway::fake()` either at the beginning of your test or in your base test class.
 
 ```php
 <?php
@@ -255,6 +255,8 @@ public function test_a_username_is_a_string()
     $this->assertIsString($user->username);
 }
 ```
+
+> Note: in order for faking to work, your user MUST have a Truckspace ID set. This can also be a random number.
 
 ## Testing
 

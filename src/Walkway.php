@@ -14,7 +14,7 @@ class Walkway
      *
      * @var bool
      */
-    protected static $fake = false;
+    protected static $shouldFake = false;
 
     /**
      * Generate the URL for the path and base URL.
@@ -35,16 +35,16 @@ class Walkway
      */
     public static function user(?Model $model = null): ?User
     {
-        if (self::$fake) {
-            return (new User(null, self::$fake));
+        if (! $model && ! Auth::check()) {
+            return null;
         }
 
         if (! $model && Auth::check()) {
             $model = Auth::user();
         }
 
-        if (! $model && ! Auth::check()) {
-            return null;
+        if (self::$shouldFake && $model->getAttribute(config('laravel-walkway.columns.id'))) {
+            return (new User(null, self::$shouldFake));
         }
 
         $user = TruckspaceService::getUser($model);
@@ -59,6 +59,6 @@ class Walkway
      */
     public static function fake()
     {
-        self::$fake = true;
+        self::$shouldFake = true;
     }
 }
