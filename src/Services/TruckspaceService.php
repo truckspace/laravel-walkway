@@ -32,11 +32,17 @@ class TruckspaceService
         }
 
         $key = config('laravel-walkway.cache.prefix') . $truckspaceId;
+        $ttl = config('laravel-walkway.cache.ttl');
 
-        return Cache::store($store)
-            ->remember($key, config('laravel-walkway.cache.ttl'), function () use ($user) {
+        if (! $ttl || $ttl === -1) {
+            return Cache::store($store)->rememberForever($key, function () use ($user) {
                 return self::getUserFromApi($user);
             });
+        }
+
+        return Cache::store($store)->remember($key, $ttl, function () use ($user) {
+            return self::getUserFromApi($user);
+        });
     }
 
     /**

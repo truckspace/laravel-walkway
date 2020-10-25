@@ -100,6 +100,8 @@ One advantage of using Walkway, is that it will automatically take care of cachi
 ],
 ```
 
+> Note: Setting the cache `ttl` to `null` or `-1`, will cache the user data _forever_ (until the cache is cleared or the key is removed).
+
 <a name="socialite-provider"></a>
 ### Socialite Provider
 
