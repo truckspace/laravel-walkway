@@ -18,13 +18,13 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
-        "fzaninotto/faker": "^1.9",
+        "fakerphp/faker": "^1.9",
         "illuminate/support": "^8.7",
         "laravel/socialite": "^5.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
-        "phpunit/phpunit": "^9.3",
+        "phpunit/phpunit": "^9.3.3",
         "squizlabs/php_codesniffer": "^3.5"
     },
     "autoload": {
