@@ -27,7 +27,7 @@ class Walkway
         if (substr($path, 0) != '/') {
             $path = '/' . $path;
         }
-        return config('services.truckspace.base_url', 'https://id.truckspace.group') . $path;
+        return config('laravel-walkway.base_url') . $path;
     }
 
     /**
