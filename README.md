@@ -111,6 +111,7 @@ To use the Truckspace socialite driver, you will need to create an application o
 
 ```php
 'truckspace' => [
+    'base_url' => env('TRUCKSPACE_BASE_URL'),
     'client_id' => env('TRUCKSPACE_CLIENT_ID'),
     'client_secret' => env('TRUCKSPACE_CLIENT_SECRET'),
     'redirect' => env('TRUCKSPACE_REDIRECT_URI'),
@@ -121,6 +122,7 @@ Finally, add the following environment varables:
 
 ```
 # Truckspace OAuth
+TRUCKSPACE_BASE_URL=
 TRUCKSPACE_CLIENT_ID=
 TRUCKSPACE_CLIENT_SECRET=
 TRUCKSPACE_REDIRECT_URI=

@@ -24,7 +24,10 @@ class Walkway
      */
     public static function url(string $path): string
     {
-        return 'https://id.truckspace.group/' . $path;
+        if (substr($path, 0) != '/') {
+            $path = '/' . $path;
+        }
+        return config('services.truckspace.base_url', 'https://id.truckspace.group') . $path;
     }
 
     /**
