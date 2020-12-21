@@ -121,6 +121,7 @@ Finally, add the following environment varables:
 
 ```
 # Truckspace OAuth
+TRUCKSPACE_BASE_URL=
 TRUCKSPACE_CLIENT_ID=
 TRUCKSPACE_CLIENT_SECRET=
 TRUCKSPACE_REDIRECT_URI=

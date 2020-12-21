@@ -2,6 +2,8 @@
 
 return [
 
+    'base_url' => env('TRUCKSPACE_BASE_URL', 'https://id.truckspace.group'),
+
     /*
     |--------------------------------------------------------------------------
     | Database Columns
