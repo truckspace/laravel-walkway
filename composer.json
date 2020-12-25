@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
         "fakerphp/faker": "^1.9",
         "illuminate/support": "^7.0|^8.0",
@@ -40,7 +40,6 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
         "test-format": "vendor/bin/phpcs src --standard=PSR12",
         "format": "vendor/bin/phpcbf src --standard=PSR12"
     },
