@@ -97,7 +97,7 @@ class TruckspaceService
     }
 
     /**
-     * Refresh thte users tokens.
+     * Refresh the users tokens.
      *
      * @param  Model  $user
      * @param  string  $refreshToken

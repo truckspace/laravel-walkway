@@ -61,7 +61,7 @@ class Walkway
      *
      * @return void
      */
-    public static function fake()
+    public static function fake(): void
     {
         self::$shouldFake = true;
     }

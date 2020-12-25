@@ -15,7 +15,7 @@ class TruckspaceProvider extends AbstractProvider
      * @param  string  $state
      * @return string
      */
-    protected function getAuthUrl($state)
+    protected function getAuthUrl($state): string
     {
         return $this->buildAuthUrlFromBase(Walkway::url('oauth/authorize'), $state);
     }
@@ -25,7 +25,7 @@ class TruckspaceProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getTokenUrl()
+    protected function getTokenUrl(): string
     {
         return Walkway::url('oauth/token');
     }
@@ -38,7 +38,7 @@ class TruckspaceProvider extends AbstractProvider
      *
      * @throws GuzzleException
      */
-    protected function getUserByToken($token)
+    protected function getUserByToken($token): array
     {
         $response = $this->getHttpClient()->get(Walkway::url('api/me'), [
             'headers' => [
@@ -55,7 +55,7 @@ class TruckspaceProvider extends AbstractProvider
      * @param  array  $user
      * @return User
      */
-    protected function mapUserToObject(array $user)
+    protected function mapUserToObject(array $user): User
     {
         return (new User())->setRaw($user)->map([
             'id' => $user['id'],
@@ -72,7 +72,7 @@ class TruckspaceProvider extends AbstractProvider
      * @param  string  $code
      * @return array
      */
-    protected function getTokenFields($code)
+    protected function getTokenFields($code): array
     {
         return array_merge(parent::getTokenFields($code), [
             'grant_type' => 'authorization_code',

@@ -49,6 +49,7 @@ class User
      *
      * @param  array|null  $user
      * @param  bool  $fake
+     * @return void
      */
     public function __construct(?array $user, bool $fake = false)
     {
