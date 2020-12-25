@@ -27,6 +27,7 @@ class Walkway
         if (substr($path, 0) != '/') {
             $path = '/' . $path;
         }
+
         return config('laravel-walkway.base_url') . $path;
     }
 
