@@ -4,13 +4,13 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        php: [7.3, 7.4, 8.0]
-        laravel: [^7.0, ^8.0]
+        php: [ 7.3, 7.4, 8.0 ]
+        laravel: [ ^7.0, ^8.0 ]
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }}
 
@@ -27,10 +27,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "illuminate/contracts:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+          composer require "illuminate/contracts=${{ matrix.laravel }}" --prefer-dist --no-interaction --no-update
+          composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
         run: |
-          vendor/bin/phpunit
+          vendor/bin/phpunit --verbose
           vendor/bin/phpcs src --standard=PSR12
