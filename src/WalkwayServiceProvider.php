@@ -16,7 +16,7 @@ class WalkwayServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-walkway.php', 'laravel-walkway');
+        $this->mergeConfigFrom(__DIR__ . '/../config/walkway.php', 'walkway');
     }
 
     /**
@@ -28,49 +28,24 @@ class WalkwayServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->configurePublishing();
+        $this->registerPublishing();
         $this->configureSocialiteProvider();
     }
 
     /**
-     * Configure the publishable resources offered by the package.
+     * Register the package's publishable resources.
      *
      * @return void
      */
-    protected function configurePublishing(): void
+    protected function registerPublishing(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/laravel-walkway.php' => config_path('laravel-walkway.php'),
-            ], 'walkway-config');
-
-            $migrationFileName = 'create_walkway_columns.php';
-            if (! $this->migrationFileExists($migrationFileName)) {
-                $path =  database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName);
-
-                $this->publishes([
-                    __DIR__ . "/../database/migrations/{$migrationFileName}.stub" => $path,
-                ], 'walkway-migrations');
-            }
-        }
-    }
-
-    /**
-     * Check if the specified migration file already exists.
-     *
-     * @param  string  $migrationFileName
-     * @return bool
-     */
-    public static function migrationFileExists(string $migrationFileName): bool
-    {
-        $len = strlen($migrationFileName);
-        foreach (glob(database_path("migrations/*.php")) as $filename) {
-            if ((substr($filename, -$len) === $migrationFileName)) {
-                return true;
-            }
+            return;
         }
 
-        return false;
+        $this->publishes([
+            __DIR__ . '/../config/walkway.php' => config_path('walkway.php'),
+        ], 'walkway-config');
     }
 
     /**
