@@ -59,11 +59,11 @@ class TruckspaceProvider extends AbstractProvider
     protected function mapUserToObject(array $user): User
     {
         return (new User())->setRaw($user)->map([
-            'id' => $user['id'],
-            'nickname' => $user['username'],
-            'name' => $user['username'],
-            'email' => null,
-            'avatar' => $user['profile_photo'],
+            'id' => $user['data']['id'],
+            'nickname' => $user['data']['username'],
+            'name' => $user['data']['username'],
+            'email' => $user['data']['email'],
+            'avatar' => $user['data']['profile_photo'],
         ]);
     }
 
