@@ -1,18 +1,17 @@
 {
     "name": "truckspace/laravel-walkway",
-    "description": "Handles connections between Laravel and the Truckspace ID service.",
-    "keywords": [
-        "truckspace",
-        "laravel-walkway"
-    ],
-    "homepage": "https://github.com/truckspace/laravel-walkway",
+    "description": "Laravel wrapper around the Truckspace ID service.",
+    "keywords": ["truckspace", "laravel", "auth"],
+    "homepage": "https://id.truckspace.group",
     "license": "MIT",
+    "support": {
+        "issues": "https://github.com/truckspace/laravel-walkway/issues",
+        "source": "https://github.com/truckspace/laravel-walkway"
+    },
     "authors": [
         {
             "name": "Ben Sherred",
-            "email": "ben@truckspace.io",
-            "homepage": "https://truckspace.io",
-            "role": "Developer"
+            "email": "ben@truckspace.group"
         }
     ],
     "require": {
@@ -29,22 +28,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Truckspace\\Walkway\\": "src",
-            "Truckspace\\Walkway\\Database\\Factories\\": "database/factories"
+            "Truckspace\\Walkway\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Truckspace\\Walkway\\Tests\\": "tests"
         }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit --colors=always",
-        "test-format": "vendor/bin/phpcs src --standard=PSR12",
-        "format": "vendor/bin/phpcbf src --standard=PSR12"
-    },
-    "config": {
-        "sort-packages": true
     },
     "extra": {
         "laravel": {
@@ -53,6 +43,14 @@
             ]
         }
     },
+    "config": {
+        "sort-packages": true
+    },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-format": "vendor/bin/phpcs src --standard=PSR12",
+        "format": "vendor/bin/phpcbf src --standard=PSR12"
+    }
 }
