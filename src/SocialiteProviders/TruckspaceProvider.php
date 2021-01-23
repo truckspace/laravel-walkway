@@ -5,7 +5,6 @@ namespace Truckspace\Walkway\SocialiteProviders;
 use GuzzleHttp\Exception\GuzzleException;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\User;
-use Truckspace\Walkway\Walkway;
 
 class TruckspaceProvider extends AbstractProvider
 {
@@ -15,9 +14,9 @@ class TruckspaceProvider extends AbstractProvider
      * @param  string  $state
      * @return string
      */
-    protected function getAuthUrl($state)
+    protected function getAuthUrl($state): string
     {
-        return $this->buildAuthUrlFromBase(Walkway::url('oauth/authorize'), $state);
+        return $this->buildAuthUrlFromBase($this->buildUrl('oauth/authorize'), $state);
     }
 
     /**
@@ -25,9 +24,9 @@ class TruckspaceProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getTokenUrl()
+    protected function getTokenUrl(): string
     {
-        return Walkway::url('oauth/token');
+        return $this->buildUrl('oauth/token');
     }
 
     /**
@@ -38,9 +37,11 @@ class TruckspaceProvider extends AbstractProvider
      *
      * @throws GuzzleException
      */
-    protected function getUserByToken($token)
+    protected function getUserByToken($token): array
     {
-        $response = $this->getHttpClient()->get(Walkway::url('api/me'), [
+        $uri = $this->buildUrl('api/me');
+
+        $response = $this->getHttpClient()->get($uri, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $token,
             ],
@@ -55,7 +56,7 @@ class TruckspaceProvider extends AbstractProvider
      * @param  array  $user
      * @return User
      */
-    protected function mapUserToObject(array $user)
+    protected function mapUserToObject(array $user): User
     {
         return (new User())->setRaw($user)->map([
             'id' => $user['id'],
@@ -72,10 +73,24 @@ class TruckspaceProvider extends AbstractProvider
      * @param  string  $code
      * @return array
      */
-    protected function getTokenFields($code)
+    protected function getTokenFields($code): array
     {
         return array_merge(parent::getTokenFields($code), [
             'grant_type' => 'authorization_code',
         ]);
+    }
+
+    /**
+     * Build the url from the specified path and base url.
+     * @param  string  $path
+     * @return string
+     */
+    protected function buildUrl(string $path): string
+    {
+        if (substr($path, 0) != '/') {
+            $path = '/' . $path;
+        }
+
+        return config('walkway.base_url') . $path;
     }
 }

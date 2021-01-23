@@ -5,7 +5,7 @@ namespace Truckspace\Walkway\Tests;
 use Laravel\Socialite\Contracts\Factory;
 use Truckspace\Walkway\SocialiteProviders\TruckspaceProvider;
 
-class TruckspaceSocialiteTest extends TestCase
+class TruckspaceSocialiteTest extends OrchestraTestCase
 {
     public function test_it_can_instantiate_the_truckspace_driver()
     {
