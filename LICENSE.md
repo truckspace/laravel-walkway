@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) Truckspace <hello@truckspace.io>
+Copyright (c) Truckspace Group <hello@truckspace.group>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
