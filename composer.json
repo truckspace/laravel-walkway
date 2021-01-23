@@ -40,7 +40,6 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
         "test-format": "vendor/bin/phpcs src --standard=PSR12",
         "format": "vendor/bin/phpcbf src --standard=PSR12"
     },
