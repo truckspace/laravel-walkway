@@ -9,6 +9,15 @@ use Laravel\Socialite\Two\User;
 class TruckspaceProvider extends AbstractProvider
 {
     /**
+     * The scopes being requested.
+     *
+     * @var array
+     */
+    protected $scopes = [
+        'identity',
+    ];
+
+    /**
      * Get the authentication URL for the provider.
      *
      * @param  string  $state
