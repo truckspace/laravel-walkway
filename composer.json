@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "ext-json": "*",
         "fakerphp/faker": "^1.9",
         "illuminate/support": "^8.7",
