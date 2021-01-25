@@ -15,69 +15,42 @@
     </a>
 </p>
 
-## Introduction
+## About Walkway
 
-Laravel Walkway aims to provide a simple and intuitive interface for authenticating with the [Truckspace ID](https://id.truckspace.group) OAuth server.
-
-## Using Laravel Walkway
-
-- [Installation](#installation)
-- [Socialite Provider](#socialite-provider)
-    - [Saving the tokens](#saving-the-tokens)
+Laravel Walkway is a Laravel Socialite provider which makes it super easy for you to allow
+your users to authenticate with their Truckspace ID in your Laravel application.
 
 <a name="installation"></a>
-### Installation
+## Installation
 
-To get started, install Walkway using Composer:
+To get started with Walkway, use the Composer package manager to add the package to your project's dependencies:
 
 ```bash
 composer require truckspace/laravel-walkway
 ```
 
-Next, publish Walkways's resources:
+<a name="configuration"></a>
+## Configuration
 
-```bash
-php artisan vendor:publish --provider="Truckspace\Walkway\WalkwayServiceProvider"
-```
-
-This command will publish Walkways's config file and default migrations.
-
-Next, you should migrate your database:
-
-```bash
-php artisan migrate
-```
-
-<a name="socialite-provider"></a>
-### Socialite Provider
-
-[Laravel Socialite](https://laravel.com/docs/master/socialite) provides a simple way to authenticate with OAuth providers. Walkway provides a Truckspace driver to make authentication as easy as possible.
-
-To use the Truckspace socialite driver, you will need to create an application on the [Truckspace ID developers](https://id.truckspace.group/developers) page. These credentails should then be placed in your `config/services.php` configuration file:
+Before using the Walkway socialite provider, you will need to add your credentials to your application's
+`config/services.php`configuration file.
 
 ```php
 'truckspace' => [
     'client_id' => env('TRUCKSPACE_CLIENT_ID'),
     'client_secret' => env('TRUCKSPACE_CLIENT_SECRET'),
-    'redirect' => env('TRUCKSPACE_REDIRECT_URI'),
+    'redirect' => 'http://example.com/callback-url',
 ],
 ```
 
-Finally, add the following environment varables:
-
-```
-# Truckspace OAuth
-TRUCKSPACE_BASE_URL=
-TRUCKSPACE_CLIENT_ID=
-TRUCKSPACE_CLIENT_SECRET=
-TRUCKSPACE_REDIRECT_URI=
-```
-
-You can now use the Truckspace socialite driver like any other driver:
+You should now be able to use the provider like you would regularly use Socialite (assuming you have the facade installed):
 
 ```php
-Socialite::driver('truckspace');
+return Socialite::driver('truckspace')->redirect();
 ```
+
+For more information on how to use Laravel Socialite, please visit the
+[official documentation](https://laravel.com/docs/8.x/socialite).
 
 ## Testing
 
@@ -87,4 +60,4 @@ composer test
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+Laravel Walkwat is open-sourced software licensed under the [MIT license](LICENSE.md).
