@@ -18,6 +18,13 @@ class TruckspaceProvider extends AbstractProvider
     ];
 
     /**
+     * The separating character for the requested scopes.
+     *
+     * @var string
+     */
+    protected $scopeSeparator = ' ';
+
+    /**
      * Get the authentication URL for the provider.
      *
      * @param  string  $state
