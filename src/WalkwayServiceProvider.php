@@ -39,7 +39,7 @@ class WalkwayServiceProvider extends ServiceProvider
      */
     protected function registerPublishing(): void
     {
-        if ($this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole()) {
             return;
         }
 
