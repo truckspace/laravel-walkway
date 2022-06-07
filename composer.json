@@ -21,7 +21,7 @@
         "laravel/socialite": "^5.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
         "phpunit/phpunit": "^8.0|^9.3",
         "squizlabs/php_codesniffer": "^3.5"
     },
